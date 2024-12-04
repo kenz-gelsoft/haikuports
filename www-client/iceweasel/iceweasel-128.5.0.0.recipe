@@ -6,9 +6,9 @@ HOMEPAGE="https://github.com/kenz-gelsoft/gecko-dev"
 COPYRIGHT="1995-2024 Mozilla Developers and Contributors"
 LICENSE="MPL v2.0"
 REVISION="1"
-srcGitRev="e14b3e7bef82510f279f5592ee901bd349f96099"
+srcGitRev="83d7a3516e837c6dfa87010fdbabf2f33e706ccf"
 SOURCE_URI="https://github.com/kenz-gelsoft/gecko-dev/archive/$srcGitRev.zip"
-CHECKSUM_SHA256="133787a35fd8d8cc2cf816070b73127b53f4f300204b8f58a06754c0f02b4cf5"
+CHECKSUM_SHA256="c280fc49db970a8beb1329dc1dec4e7c0916948fbaed9a7e738f2aec5a552aa3"
 SOURCE_DIR="gecko-dev-$srcGitRev"
 PATCHES="gecko-dev-$portVersion.patch"
 ADDITIONAL_FILES="iceweasel_icon.hvif"
@@ -32,6 +32,7 @@ REQUIRES="
 	lib:libharfbuzz
 	lib:libintl
 	lib:libnspr4
+	lib:libnss3
 	lib:libpango_1.0
 	lib:libpangocairo_1.0
 	lib:libpng16
@@ -46,6 +47,7 @@ BUILD_REQUIRES="
 	devel:libglib_2.0
 	devel:libgtk_3
 	devel:libnspr4
+	devel:libnss3
 	devel:libpng16
 	devel:libvpx
 	devel:libwebp
@@ -105,8 +107,17 @@ INSTALL()
 
 	# arranging the files in lib directories
 	cd $appsDir/Iceweasel
+	# NSS libs
+	# mv \
+	#	libfreebl3.so        \
+	#	libnss3.so           \
+	#	libnssckbi.so        \
+	#	libnssutil3.so       \
+	#	libsmime3.so         \
+	#	libsoftokn3.so       \
+	#	libssl3.so           \
+	#	lib
 	mv \
-		libfreebl3.so        \
 		libgkcodecs.so       \
 		libipcclientcerts.so \
 		liblgpllibs.so       \
@@ -115,12 +126,6 @@ INSTALL()
 		libmozgtk.so         \
 		libmozsqlite3.so     \
 		libmozwayland.so     \
-		libnss3.so           \
-		libnssckbi.so        \
-		libnssutil3.so       \
-		libsmime3.so         \
-		libsoftokn3.so       \
-		libssl3.so           \
 		libxul.so            \
 		lib
 
