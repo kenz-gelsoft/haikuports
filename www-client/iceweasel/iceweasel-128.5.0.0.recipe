@@ -11,7 +11,7 @@ SOURCE_URI="https://github.com/kenz-gelsoft/gecko-dev/archive/$srcGitRev.zip"
 CHECKSUM_SHA256="c280fc49db970a8beb1329dc1dec4e7c0916948fbaed9a7e738f2aec5a552aa3"
 SOURCE_DIR="gecko-dev-$srcGitRev"
 PATCHES="gecko-dev-$portVersion.patch"
-ADDITIONAL_FILES="iceweasel_icon.hvif"
+ADDITIONAL_FILES="iceweasel.rdef.in"
 
 ARCHITECTURES="x86_64"
 
@@ -129,7 +129,20 @@ INSTALL()
 		libxul.so            \
 		lib
 
-	addattr -t icon -f $portDir/additional-files/iceweasel_icon.hvif \
-		"BEOS:ICON" $appsDir/Iceweasel/Iceweasel
+	local APP_SIGNATURE="application/x-vnd.iceweasel"
+	local MAJOR="`echo "$portVersion" | cut -d. -f1`"
+	local MIDDLE="`echo "$portVersion" | cut -d. -f2`"
+	local MINOR="`echo "$portVersion" | cut -d. -f3`"
+	local LONG_INFO="$SUMMARY"
+	sed \
+		-e "s|@APP_SIGNATURE@|$APP_SIGNATURE|" \
+		-e "s|@MAJOR@|$MAJOR|" \
+		-e "s|@MIDDLE@|$MIDDLE|" \
+		-e "s|@MINOR@|$MINOR|" \
+		-e "s|@LONG_INFO@|$LONG_INFO|" \
+		$portDir/additional-files/iceweasel.rdef.in > iceweasel.rdef
+
+	addResourcesToBinaries iceweasel.rdef $appsDir/Iceweasel/Iceweasel
+
 	addAppDeskbarSymlink $appsDir/Iceweasel/Iceweasel
 }
