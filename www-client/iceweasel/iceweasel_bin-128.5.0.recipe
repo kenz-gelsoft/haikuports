@@ -26,9 +26,9 @@ REQUIRES="
 	lib:libcairo_gobject
 	lib:libgdk_3
 	lib:libgdk_pixbuf_2.0
-	lib:libgio-2.0
+	lib:libgio_2.0
 	lib:libglib_2.0
-	lib:libgobject-2.0
+	lib:libgobject_2.0
 	lib:libgtk_3
 	lib:libharfbuzz
 	lib:libintl
