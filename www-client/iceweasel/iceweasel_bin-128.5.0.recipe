@@ -6,9 +6,9 @@ HOMEPAGE="https://github.com/kenz-gelsoft/gecko-dev"
 COPYRIGHT="1995-2024 Mozilla Developers and Contributors"
 LICENSE="MPL v2.0"
 REVISION="1"
-buildTag="HAIKU128_5_20241206"
-SOURCE_URI="https://github.com/kenz-gelsoft/gecko-dev/releases/download/$buildTag/firefox-$portVersion.en-US.haiku-x86_64.tar.bz2#noarchive"
-CHECKSUM_SHA256="311720a084a87da790ed3f992499f939d76e0259387c706336c3c56581bf65f0"
+buildTag="HAIKU128_5_20241207"
+SOURCE_URI="https://github.com/kenz-gelsoft/gecko-dev/releases/download/$buildTag/Iceweasel-$portVersion.en-US.haiku-x86_64.tar.bz2#noarchive"
+CHECKSUM_SHA256="3b1299933bd2423a37ecb439498fb731960fa1770f7e3b51faf80d4d70bf210e"
 ADDITIONAL_FILES="iceweasel.rdef.in"
 
 ARCHITECTURES="x86_64"
@@ -43,14 +43,11 @@ REQUIRES="
 INSTALL()
 {
 	mkdir -p $appsDir
-	tar jxf firefox-$portVersion.en-US.haiku-x86_64.tar.bz2 -C $appsDir
-	mv $appsDir/{firefox,Iceweasel}
-
-	cd $appsDir/Iceweasel
-	mv firefox Iceweasel
+	tar jxf Iceweasel-$portVersion.en-US.haiku-x86_64.tar.bz2 -C $appsDir
 
 	# arranging the files in lib directories
 	mkdir -p $appsDir/Iceweasel/lib
+	cd $appsDir/Iceweasel
 	# NSS libs
 	# mv \
 	#	libfreebl3.so        \
