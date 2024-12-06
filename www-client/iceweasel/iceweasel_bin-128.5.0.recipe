@@ -6,13 +6,12 @@ HOMEPAGE="https://github.com/kenz-gelsoft/gecko-dev"
 COPYRIGHT="1995-2024 Mozilla Developers and Contributors"
 LICENSE="MPL v2.0"
 REVISION="1"
-SOURCE_URI="https://github.com/kenz-gelsoft/gecko-dev/releases/download/HAIKU128_5_20241206/firefox-128.5.0.en-US.haiku-x86_64.tar.bz2"
+SOURCE_URI="https://github.com/kenz-gelsoft/gecko-dev/releases/download/HAIKU128_5_20241206/firefox-$portVersion.en-US.haiku-x86_64.tar.bz2#noarchive"
 CHECKSUM_SHA256="311720a084a87da790ed3f992499f939d76e0259387c706336c3c56581bf65f0"
-SOURCE_DIR="firefox"
-#PATCHES="gecko-dev-$portVersion.patch"
 ADDITIONAL_FILES="iceweasel_icon.hvif"
 
 ARCHITECTURES="x86_64"
+DISABLE_SOURCE_PACKAGE="true"
 
 PROVIDES="
 	iceweasel= $portVersion
@@ -38,56 +37,17 @@ REQUIRES="
 	lib:libz
 	"
 
-BUILD_REQUIRES="
-#	haiku_devel
-#	devel:libdbus_1
-#	devel:libdbus_glib_1
-#	devel:libevent
-#	devel:libglib_2.0
-#	devel:libgtk_3
-#	devel:libnspr4
-#	devel:libnss3
-#	devel:libpng16
-#	devel:libvpx
-#	devel:libwebp
-#	devel:libzstd
-	"
-BUILD_PREREQUIRES="
-#	llvm18
-#	nodejs16
-#	rust_bin
-#	cmd:autoconf_2.13
-#	cmd:cbindgen
-#	cmd:clang++
-#	cmd:gawk
-#	# We need gcc even if we use clang to compile.
-#	cmd:gcc
-#	cmd:git
-#	cmd:m4
-#	cmd:make
-#	cmd:nasm
-#	cmd:perl
-#	cmd:pip3
-#	cmd:pkg_config
-#	cmd:python3
-#	cmd:tar
-#	cmd:xargs
-#	cmd:zip
-	"
-
 INSTALL()
 {
-	pwd $appsDir	
 	mkdir -p $appsDir
+	tar jxf firefox-$portVersion.en-US.haiku-x86_64.tar.bz2 -C $appsDir
+	mv $appsDir/{firefox,Iceweasel}
 
-	cd ..
-	mv firefox $appsDir/Iceweasel
-	mv $appsDir/Iceweasel/{firefox,Iceweasel}
-
-	mkdir -p $appsDir/Iceweasel/lib
+	cd $appsDir/Iceweasel
+	mv firefox Iceweasel
 
 	# arranging the files in lib directories
-	cd $appsDir/Iceweasel
+	mkdir -p $appsDir/Iceweasel/lib
 	# NSS libs
 	# mv \
 	#	libfreebl3.so        \
